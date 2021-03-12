@@ -1,0 +1,58 @@
+<div class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+
+        <h2 class="title is-4"> Sign up </h2>
+
+
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= f.error_notification %>
+
+            <div class="field">
+              <div class="control">
+              <%= f.input :email, wrapper: false, label_html: { class: "label"},
+                          required: true,
+                          autofocus: true,
+                          input_html: { autocomplete: "email", class: "input" }%>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+              <%= f.input :username, wrapper: false, label_html: { class: "label"},
+                          required: true, hint: "NOTE: Username cannot be changed once registered",
+                          autofocus: true,
+                          input_html: { class: "input" }%>
+              </div>
+            </div>
+
+
+
+            <div class="field">
+              <div class="control">
+              <%= f.input :password, wrapper: false, label_html: { class: "label"},
+                          required: true, placeholder: "Please enter password",
+                          hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                          input_html: { autocomplete: "new-password", class: "input" } %>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+              <%= f.input :password_confirmation, wrapper: false, label_html: { class: "label"},
+                          required: true,
+                          input_html: { autocomplete: "new-password", class: "input" } %>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <%= f.button :submit, "Sign up", class:"button is-info" %>
+            </div>
+          <% end %>
+
+          <%= render "devise/shared/links" %>
+
+      </div>
+    </div>
+  </div>
+</div>

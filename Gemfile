@@ -27,6 +27,8 @@ gem 'jbuilder', '~> 2.7'
 gem "figaro"
 gem 'better_errors', '~> 2.9', '>= 2.9.1'
 gem 'bulma-rails', '~> 0.9.1'
+gem 'devise'
+gem 'simple_form'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
