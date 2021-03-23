@@ -1,3 +1,21 @@
+<article class="article">
 <div class= "column">
   <strong> You want to know something? just love this </strong>
 </div>
+
+<h1> All users </h1>
+
+<% @users.each do |f| %>
+  <strong> Name: </strong> <em> <%= f.username %> </em>
+  <strong> E-mail:</strong> <em> <%= f.email %> </em> <br />
+<% end %>
+
+
+
+<% if current_user.profile.present? %>
+  <%= link_to "View my profile", user_profile_path(@users), class: "button is-primary" %>
+<% else %>
+  <%= link_to "Create a new profile", new_user_profile_path(current_user) %> <br />
+<% end %>
+
+</article>

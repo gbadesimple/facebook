@@ -1,0 +1,40 @@
+<div class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+
+        <h1 class="title is-4 is-centered"> <%= current_user.username.humanize.capitalize %>'s Profile </h1>
+
+        <div>
+          <strong> Firstname: </strong> <%= current_user.profile.firstname.capitalize %><br />
+          <strong> Lastname: </strong> <%= current_user.profile.lastname.capitalize %><br />
+          <strong> Sex: </strong> <%= current_user.profile.sex.capitalize %><br />
+          <strong> Marital status: </strong> <%= current_user.profile.marital_status.capitalize %><br />
+          <strong> Occupation: </strong> <%= current_user.profile.occupation.capitalize %><br />
+          <strong> Study: </strong> <%= current_user.profile.study.capitalize %><br />
+          <strong>Qualification: </strong> <%= current_user.profile.qualification.capitalize %><br />
+          <strong> Date of birth: </strong> <%= current_user.profile.date_of_birth.to_formatted_s(:long) %> <br />
+
+          <strong>Age: </strong> <%= Time.new.year - current_user.profile.date_of_birth.year %> years old<br />
+
+          <strong>State of Origin: </strong> <%= current_user.profile.state_of_origin.capitalize %><br />
+          <strong> Local Government of Origin: </strong> <%= current_user.profile.lga.capitalize %><br />
+
+          <strong> Place of Residence: </strong> <%= current_user.profile.place_of_residence.capitalize %><br />
+          <strong> Phone Number: </strong> <%= current_user.profile.phone_number %><br />
+          <strong> Religion: </strong> <%= current_user.profile.religion %><br />
+
+        </div>
+
+        <div class="field">
+          <div class="control">
+              <%= link_to "Edit profile", edit_user_profile_path(current_user), class: "button is-info" %>
+              <%= link_to "<< Back", root_path, class: "button is-primary" %><br />
+              <%= link_to "Delete profile", user_profile_path(current_user), method: :delete, data: {confirm: "Are you sure?"} %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
