@@ -1,21 +1,31 @@
-<article class="article">
-<div class= "column">
-  <strong> You want to know something? just love this </strong>
-</div>
+<section class="section">
+  <div class="container">
+    <div class="columns"
 
-<h1> All users </h1>
+      <article class="message">
+        <div class= "message-header">
 
-<% @users.each do |f| %>
-  <strong> Name: </strong> <em> <%= f.username %> </em>
-  <strong> E-mail:</strong> <em> <%= f.email %> </em> <br />
-<% end %>
+        <p> All users </p>
+        </div>
+
+        <div class="message-body">
+        <% @users.each do |f| %>
+          <strong> Name: </strong> <em> <%= f.username %> </em>
+          <strong> E-mail:</strong> <em> <%= f.email %> </em> <br />
+        <% end %><br />
 
 
 
-<% if current_user.profile.present? %>
-  <%= link_to "View my profile", user_profile_path(@users), class: "button is-primary" %>
-<% else %>
-  <%= link_to "Create a new profile", new_user_profile_path(current_user) %> <br />
-<% end %>
+        <% if current_user.profile.present? %>
+          <%= link_to "View my profile", user_profile_path(@users), class: "button is-primary" %>
+        <% else %>
+          <%= link_to "Create a new profile", new_user_profile_path(current_user), class: "button is-info" %> <br />
+        <% end %>
 
-</article>
+        </div>
+      </article>
+        <strong> You want to know something? just love this </strong>
+
+    </div>
+  </div>
+</section>

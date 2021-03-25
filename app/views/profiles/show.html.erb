@@ -3,8 +3,9 @@
     <div class="columns is-centered">
       <div class="column is-4">
 
-        <h1 class="title is-4 is-centered"> <%= current_user.username.humanize.capitalize %>'s Profile </h1>
-
+        <h1 class="title is-4 is-centered"> <%= current_user.username.humanize.capitalize %>'s Profile
+          (<em class="title is-6"> created <%= distance_of_time_in_words(current_user.profile.created_at, Time.now) %> ago </em>)
+        </h1>
         <div>
           <strong> Firstname: </strong> <%= current_user.profile.firstname.capitalize %><br />
           <strong> Lastname: </strong> <%= current_user.profile.lastname.capitalize %><br />
@@ -30,7 +31,7 @@
           <div class="control">
               <%= link_to "Edit profile", edit_user_profile_path(current_user), class: "button is-info" %>
               <%= link_to "<< Back", root_path, class: "button is-primary" %><br />
-              <%= link_to "Delete profile", user_profile_path(current_user), method: :delete, data: {confirm: "Are you sure?"} %>
+              <%= link_to "Delete profile", user_profile_path(current_user), method: :delete, data: {confirm: "Are you sure you want to delete your profile?"} %>
           </div>
         </div>
 

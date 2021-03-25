@@ -1,8 +1,17 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+  #  @profile = Profile.find(params[:id])
+    @profile = Profile.find_by_user_id(params[:user_id])
+  end
+
   def new
     @profile = Profile.new
+  end
+
+  def edit
+    @profile = Profile.find_by_user_id(params[:user_id])
   end
 
   def create
@@ -18,20 +27,10 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def show
-  #  @profile = Profile.find(params[:id])
-    @profile = Profile.find_by_user_id(params[:user_id])
-  end
-
-  def edit
-    @profile = Profile.find_by_user_id(params[:user_id])
-  end
-
   def update
-    @profile = Profile.current_user.find(params[:id])
-    @profile.update(user_profile_params)
+    @profile = Profile.find(params[:id])
 
-    if @profile.update
+    if @profile.update(user_profile_params)
       flash[:notice] = "Profile updated successfully"
 
       redirect_to user_profile_path(current_user)
@@ -45,7 +44,7 @@ class ProfilesController < ApplicationController
 
   def destroy
     @user = current_user
-    @profile = @user.profile.find_by_user_id(params[:id])
+    @profile = Profile.find_by_user_id(params[:user_id])
     if @profile.destroy
       flash[:notice] = "Profile successfully deleted"
 
