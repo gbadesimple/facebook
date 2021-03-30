@@ -1,20 +1,14 @@
 <section class="section">
   <div class="container">
-    <div class="columns"
 
       <article class="message">
-        <div class= "message-header">
 
-        <p> All users </p>
-        </div>
+        <p class="title is-5"> All users </p>
 
-        <div class="message-body">
         <% @users.each do |f| %>
           <strong> Name: </strong> <em> <%= f.username %> </em>
           <strong> E-mail:</strong> <em> <%= f.email %> </em> <br />
         <% end %><br />
-
-
 
         <% if current_user.profile.present? %>
           <%= link_to "View my profile", user_profile_path(@users), class: "button is-primary" %>
@@ -22,10 +16,11 @@
           <%= link_to "Create a new profile", new_user_profile_path(current_user), class: "button is-info" %> <br />
         <% end %>
 
-        </div>
       </article>
-        <strong> You want to know something? just love this </strong>
+        <strong> You want to know something? just love this </strong><br />
+
+        <p> Post information: <%= link_to "Post", posts_path %> </p>
+
 
     </div>
-  </div>
 </section>

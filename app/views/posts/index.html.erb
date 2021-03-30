@@ -1,0 +1,22 @@
+<section class="section">
+  <div class="container">
+    <div class="column">
+        <h1 class="title is-5"> Post </h1>
+
+        <%= render "form" %><br />
+
+        <div>
+          <% @posts.each do |post| %>
+            <p>
+              <strong> <%= post.title %> </strong>
+              <em>posted: <%= distance_of_time_in_words_to_now(post.created_at) %> ago.</em>
+            </p>
+          <% end %>
+        </div> <br />
+
+
+    </div>
+
+      <%= link_to "View all users", users_path, class: "button is-dark" %>
+  </div>
+</section>

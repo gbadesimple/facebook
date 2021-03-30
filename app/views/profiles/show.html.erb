@@ -6,6 +6,15 @@
         <h1 class="title is-4 is-centered"> <%= current_user.username.humanize.capitalize %>'s Profile
           (<em class="title is-6"> created <%= distance_of_time_in_words(current_user.profile.created_at, Time.now) %> ago </em>)
         </h1>
+
+        <div>
+          <% if current_user.profile.date_of_birth.month.day == Date.new.month.day %>
+          <em> Happy birthday! May today be memorable and bring blesssings your way now and always. <br />
+              From all of us at Facebook.
+          </em>
+          <% end %>
+        </div><br />
+
         <div>
           <strong> Firstname: </strong> <%= current_user.profile.firstname.capitalize %><br />
           <strong> Lastname: </strong> <%= current_user.profile.lastname.capitalize %><br />

@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   root "users#index"
 
   resources :users do
-    resource :profile
+    resource :profile, except: [:index]
   end
+
+  resources :posts
 
 
 end
