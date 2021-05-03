@@ -1,24 +1,10 @@
 <h1 class="title is-4"> Post a Comment </h1>
+
   <strong> <%= @post.title %> </strong>
 
   <% @comments.each do |comment| %>
     <p><%= comment.body.capitalize %> </p>
   <% end %>
 
-  <% if @comment.errors.any? %>
-    <div id="error-explanation">
-      <h2> <%= pluralize(@comment.errors.count, "error") %> prevented your comment from saving.</h2>
-      <ul>
-      <% @comment.errors.full_messages.each do |message| %>
-        <li><%= message %> </li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
-  <%= simple_form_for ([@post, @comment]) do |f| %>
-    <%= f.input :body, wrapper: false, input_html: {placeholder: "Write comment here...", autofocus: true}, label_html: {class:"label"} %>
-    <%= f.submit "Comment", class: "button is-info" %>
-  <% end %>
-  <%= link_to "<<< back", posts_path %>
+  <%= render "error" %>
+  <%= render "form" %>
