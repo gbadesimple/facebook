@@ -1,8 +1,10 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
 
   def index
     @posts = Post.all.order(:created_at => "desc")
     @post = Post.new
+    @comment = Comment.new
   end
 
   def show
@@ -16,7 +18,6 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.create(post_params)
     if @post.save
-      flash.notice = "Posted succesfully"
 
       redirect_to posts_path
     end

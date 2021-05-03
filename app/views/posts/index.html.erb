@@ -1,22 +1,42 @@
 <section class="section">
   <div class="container">
     <div class="column">
-        <h1 class="title is-5"> Post </h1>
+
+       <%= link_to "View all users", users_path, class: "button is-link" %> <hr />
+        <h1 class="title is-4"> Post </h1>
 
         <%= render "form" %><br />
 
         <div>
-          <% @posts.each do |post| %>
+          <% @posts.each do |post| %><hr />
             <p>
               <strong> <%= post.title %> </strong>
-              <em>posted: <%= distance_of_time_in_words_to_now(post.created_at) %> ago.</em>
+              <em>posted: <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.</em>
             </p>
+
+<!-- show comments for each post -->
+              <% post.comments.each do |show_comment| %>
+                <ul>
+                  <li><%= show_comment.body.capitalize %>
+
+<!-- Restrict one user from deleting and editing other user's comment -->
+                    <% if current_user.id == show_comment.user_id %>
+                      <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %>
+                      <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>
+                    <% end %>
+
+                  </li>
+                </ul>
+              <% end %><br />
+
+            <p>
+              <%= link_to "write comment", new_post_comment_path(post.id), class: "button is-light" %>
+            </p><br />
           <% end %>
         </div> <br />
 
 
     </div>
 
-      <%= link_to "View all users", users_path, class: "button is-dark" %>
   </div>
 </section>
