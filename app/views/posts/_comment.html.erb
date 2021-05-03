@@ -1,0 +1,5 @@
+<h1> Comments </h1>
+<%= simple_form_for ([@post, @comment]) do |f| %>
+  <%= f.input :body, wrapper: false, input_html: {placeholder: "Write comment here..."}, label_html: {class:"label"} %>
+  <%= f.submit "Comment", class: "button is-inverted" %>
+<% end %>
