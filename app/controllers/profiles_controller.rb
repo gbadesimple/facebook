@@ -8,6 +8,7 @@ class ProfilesController < ApplicationController
 
   def new
     @profile = Profile.new
+    @user = User.find(params[:user_id])
   end
 
   def edit
@@ -28,7 +29,8 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    @profile = Profile.find(params[:id])
+    @user = User.find(params[:user_id])
+    @profile = @user.profile.find(params[:id])
 
     if @profile.update(user_profile_params)
       flash[:notice] = "Profile updated successfully"
