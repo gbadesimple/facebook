@@ -1,10 +1,20 @@
-<h1 class="title is-4"> Post a Comment </h1>
+<div class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-4">
+        
+        <h1 class="title is-4"> Post a Comment </h1>
 
-  <strong> <%= @post.title %> </strong>
+          <strong> <%= @post.title %> </strong>
 
-  <% @comments.each do |comment| %>
-    <p><%= comment.body.capitalize %> </p>
-  <% end %>
+          <% @comments.each do |comment| %>
+            <p><%= comment.body.capitalize %> </p>
+          <% end %>
 
-  <%= render "error" %>
-  <%= render "form" %>
+          <%= render "error" %>
+          <%= render "form" %>
+
+      </div>
+    </div>
+  </div>
+</div>

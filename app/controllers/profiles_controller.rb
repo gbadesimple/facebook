@@ -2,7 +2,6 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-  #  @profile = Profile.find(params[:id])
     @profile = Profile.find_by_user_id(params[:user_id])
   end
 
@@ -30,7 +29,7 @@ class ProfilesController < ApplicationController
 
   def update
     @user = User.find(params[:user_id])
-    @profile = @user.profile.find(params[:id])
+    @profile = @user.profile
 
     if @profile.update(user_profile_params)
       flash[:notice] = "Profile updated successfully"
