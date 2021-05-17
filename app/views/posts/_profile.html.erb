@@ -1,0 +1,50 @@
+<div class="column is-one-quarter">
+  <nav class="panel">
+    <p class="panel-heading"> Profile </p>
+
+    <div class="panel-block">
+      <article class="media">
+        <div class="media-left">
+          <figure class="image is-64x64">
+            <img src="https://bulma.io/images/placeholders/64x64.png">
+          </figure>
+        </div>
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <% if current_user.profile.present? %>
+                <strong><%= current_user.profile.firstname %> <%= current_user.profile.lastname.capitalize %> </strong><br />
+                <strong><%= current_user.profile.marital_status.capitalize %> </strong><br />
+                <strong><%= current_user.profile.occupation.capitalize %> </strong>
+              <% else %>
+                <strong> Update your profile </strong>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="panel-block">
+      <div class="level is-mobile">
+      <div class="level-item has-centered-text">
+        <div>
+          <p class="heading"> Users </p>
+          <p class="title is-6">  <%= link_to "View all users", users_path, class: "button is-link" %> </p>
+        </div>
+      </div>
+      <div class="level-item has-centered-text">
+        <div>
+          <p class="heading"> Personals </p>
+          <p class="title is-6">
+            <% if current_user.profile.present? %>
+              <%= link_to "View my profile", user_profile_path(current_user), class: "button is-primary" %>
+            <% else %>
+              <%= link_to "Create new profile", new_user_profile_path(current_user), class: "button is-info" %> <br />
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

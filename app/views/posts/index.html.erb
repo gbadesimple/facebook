@@ -1,42 +1,65 @@
 <section class="section">
   <div class="container">
-    <div class="column">
+    <div class="columns">
 
-       <%= link_to "View all users", users_path, class: "button is-link" %> <hr />
+      <%= render "profile" %>
+<!--
+      <%= link_to "View all users", users_path, class: "button is-link" %> <hr />
+-->
+      <div class="column is-half">
+
         <h1 class="title is-4"> Post </h1>
 
-        <%= render "form" %><br />
+        <article class="media box">
+          <div class="media-content">
+            <%= render "form" %><br />
+          </div>
+        </article>
 
-        <div>
-          <% @posts.each do |post| %><hr />
-            <p>
-              <strong> <%= post.title %> </strong>
-              <em>posted: <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.</em>
-            </p>
+
+           <% @posts.each do |post| %>
+             <article class="media box">
+                 <div class="media-content">
+
+               <img src="https://bulma.io/images/placeholders/64x64.png">
+               <strong class = "post-name"><%= post.user.username.capitalize %></strong>
+
+               <strong> <%= post.title %> </strong>
+<!--backup
+                 <% if current_user.id == post.user_id %>
+                   <%=link_to "delete", post_path(post.id), method: :delete, data: { confirm: "Are you sure"} %>
+                 <% end %>
+-->
+               <small><em>post <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.</em></small>
 
 <!-- show comments for each post -->
-              <% post.comments.each do |show_comment| %>
-                <ul>
-                  <li><%= show_comment.body.capitalize %>
+                 <% post.comments.each do |show_comment| %>
+                   <ul>
+                     <li><img src="https://bulma.io/images/placeholders/64x64.png"> <strong class ="comment-user-name"><%= show_comment.user.username %></strong>
+                       <%= show_comment.body.capitalize %>
+
 
 <!-- Restrict one user from deleting and editing other user's comment -->
-                    <% if current_user.id == show_comment.user_id %>
-                      <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %>
-                      <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>
-                    <% end %>
+                       <% if current_user.id == show_comment.user_id %>
+                         <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %>
+                         <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>
+                       <% end %><br />
 
-                  </li>
-                </ul>
-              <% end %><br />
+                       <small>posted on <%= show_comment.created_at.to_formatted_s(:long) %></small>
 
-            <p>
-              <%= link_to "write comment", new_post_comment_path(post.id), class: "button is-light" %>
-            </p><br />
-          <% end %>
-        </div> <br />
+                     </li>
+                   </ul>
+                 <% end %>
+
+                   <p>
+                     <%= link_to "write comment", new_post_comment_path(post.id), class: "button is-light" %>
+                   </p><br />
+                 </div>
+             </article>
+           <% end %>
+      </div>
 
 
     </div>
-
   </div>
 </section>

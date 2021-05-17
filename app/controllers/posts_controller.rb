@@ -19,6 +19,20 @@ class PostsController < ApplicationController
     if @post.save
 
       redirect_to posts_path
+    else
+      flash[:alert] = "You have not entered a string in the column provided!"
+      redirect_to posts_path
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    if @post.destroy
+      flash[:notice] = "Post successfully deleted"
+      redirect_to posts_path
+    else
+      flash[:alert] = "We are unable to delete your post"
+      render posts_path
     end
   end
 
