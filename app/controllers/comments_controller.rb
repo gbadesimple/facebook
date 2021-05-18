@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
     @post = Post.find(params[:post_id])
-    @comments = @post.comments.all.order(created_at: :desc)
+    @comments = @post.comments.all.order(created_at: :ASC)
   end
 
   def create
@@ -64,7 +64,7 @@ class CommentsController < ApplicationController
   private
 
   def params_comment
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:body, images: [] )
   end
 
 end

@@ -21,10 +21,22 @@
              <article class="media box">
                  <div class="media-content">
 
-               <img src="https://bulma.io/images/placeholders/64x64.png">
+               <% if post.user.profile.present? %>
+                <% if post.user.profile.avatar.attached? %>
+                  <%= image_tag(post.user.profile.avatar) %>
+                <% end %>
+               <% end %>
+
                <strong class = "post-name"><%= post.user.username.capitalize %></strong>
 
                <strong> <%= post.title %> </strong>
+               <div>
+                 <% if post.images.attached? %>
+                   <% post.images.each do |image| %>
+                    <%= image_tag (image) %>
+                   <% end %>
+                 <% end %>
+               </div>
 <!--backup
                  <% if current_user.id == post.user_id %>
                    <%=link_to "delete", post_path(post.id), method: :delete, data: { confirm: "Are you sure"} %>
@@ -35,8 +47,23 @@
 <!-- show comments for each post -->
                  <% post.comments.each do |show_comment| %>
                    <ul>
-                     <li><img src="https://bulma.io/images/placeholders/64x64.png"> <strong class ="comment-user-name"><%= show_comment.user.username %></strong>
+                     <li>
+                       <% if show_comment.user.profile.present? %>
+                        <% if show_comment.user.profile.avatar.attached? %>
+                          <%= image_tag(show_comment.user.profile.avatar) %>
+                        <% end %>
+                       <% end %>
+                       <strong class ="comment-user-name"><%= show_comment.user.username %></strong>
+
                        <%= show_comment.body.capitalize %>
+
+                       <div>
+                         <% if show_comment.images.attached? %>
+                           <% show_comment.images.each do |image| %>
+                            <%= image_tag (image) %>
+                           <% end %>
+                         <% end %>
+                       </div>
 
 
 <!-- Restrict one user from deleting and editing other user's comment -->

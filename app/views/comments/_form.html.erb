@@ -1,5 +1,12 @@
 <%= simple_form_for ([@post, @comment]) do |f| %>
-  <%= f.input :body, wrapper: false, input_html: {placeholder: "Write comment here...", autofocus: true}, label_html: {class:"label"} %>
-  <%= f.submit "Comment", class: "button is-info" %>
+  <div class="field">
+    <%= f.input :body, wrapper: false, input_html: {placeholder: "Write comment here...", autofocus: true}, label_html: {class:"label"} %>
+  </div>
+  <div class="field">
+    <%= f.file_field :images, multiple: true %>
+  </div>
+  <div class="form-action">
+    <%= f.submit "Comment", class: "button is-info" %>
+  </div>
 <% end %>
 <%= link_to "<<< back", posts_path %>

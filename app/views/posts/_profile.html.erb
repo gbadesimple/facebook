@@ -4,11 +4,15 @@
 
     <div class="panel-block">
       <article class="media">
-        <div class="media-left">
-          <figure class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/64x64.png">
-          </figure>
-        </div>
+        <% if current_user.profile.present? %>
+          <% if current_user.profile.avatar.attached? %>
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <%= image_tag(current_user.profile.avatar) %>
+              </figure>
+            </div>
+          <% end %>
+        <% end %>
         <div class="media-content">
           <div class="content">
             <p>
