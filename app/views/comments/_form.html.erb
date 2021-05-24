@@ -1,12 +1,30 @@
-<%= simple_form_for ([@post, @comment]) do |f| %>
-  <div class="field">
-    <%= f.input :body, wrapper: false, input_html: {placeholder: "Write comment here...", autofocus: true}, label_html: {class:"label"} %>
-  </div>
-  <div class="field">
-    <%= f.file_field :images, multiple: true %>
-  </div>
-  <div class="form-action">
-    <%= f.submit "Comment", class: "button is-info" %>
-  </div>
-<% end %>
-<%= link_to "<<< back", posts_path %>
+<article class="media">
+  <% if current_user.profile.present? %>
+    <% if current_user.profile.avatar.attached? %>
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <%= image_tag(current_user.profile.avatar) %>
+        </figure>
+      </div>
+    <% end %>
+  <% end %>
+  <%= simple_form_for ([@post, @comment]) do |f| %>
+  <div class="media-content">
+      <div class="field">
+        <p class="control">
+          <%= f.input :body, wrapper: false, input_html: {placeholder: "Write comment here...", autofocus: true}, label_html: {class:"label"} %>
+        </p>
+        <p class="control">
+          <%= f.file_field :images, multiple: true %>
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <%= f.submit "Comment", class: "button is-info" %>
+        </p>
+      </div>
+
+      <%= link_to "<< back", posts_path %>
+    </div>
+  <% end %>
+</article>

@@ -1,17 +1,73 @@
 <div class="section">
   <div class="container">
     <div class="columns is-centered">
-      <div class="column is-3">
+      <div class="column is-6">
 
         <h1 class="title is-4"> Post a Comment </h1>
 
-          <strong> <%= @post.title %> </strong><br />
+        <article class="media">
+          <% if @post.user.profile.present? %>
+            <% if @post.user.profile.avatar.attached? %>
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <%= image_tag(@post.user.profile.avatar) %>
+                </figure>
+              </div>
+            <% end %>
+          <% end %>
 
-          <% @comments.each do |comment| %>
-            <p><%= comment.body.capitalize %> </p>
-          <% end %><br />
+          <strong> <%= @post.user.username.capitalize %> &nbsp;</strong> &nbsp;
 
-          <%= render "error" %>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong> <%= @post.title %> </strong><br />
+
+                <% if @post.images.attached? %>
+                  <% @post.images.each do |image| %>
+                    <%= image_tag(image) %><br />
+                  <% end %>
+                <% end %>
+
+                <%= render "error" %>
+
+                <small><a href="#">like</a> . <a href="#">Reply</a> . <%= distance_of_time_in_words_to_now(@post.created_at, include_seconds: true)%> ago</small>
+              </p>
+            </div>
+
+            <article class="media">
+              <% @comments.each do |comment| %>
+
+                <div class="media-content">
+                  <% if comment.user.profile.present? %>
+                    <% if comment.user.profile.avatar.attached? %>
+                      <div class="media-left">
+                        <figure class="image is-64x64">
+                          <%= image_tag(comment.user.profile.avatar) %>
+                        </figure>
+                      </div>
+                    <% end %>
+                  <% end %>
+                  <strong><%= comment.user.username %> </strong><br />
+
+                  <div class="media-content">
+                    <div class="content">
+                      <p>
+                        <%= comment.body.capitalize %><br />
+
+                        <% if comment.images.attached? %>
+                          <% comment.images.each do |image| %>
+                            <%= image_tag(image) %><br>
+                          <% end %>
+                        <% end %>
+                        <small><a href="#">like</a> . <a href="#">Reply</a> . <%= distance_of_time_in_words_to_now(comment.created_at, include_seconds: true)%> ago</small>
+                        <br /><br />
+                      </p>
+                    </div>
+                  </div>
+              <% end %>
+                </div>
+            </article>
 
           <article class="media box">
             <div class="media-content">

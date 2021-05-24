@@ -19,30 +19,35 @@
 
            <% @posts.each do |post| %>
              <article class="media box">
-                 <div class="media-content">
 
-               <% if post.user.profile.present? %>
-                <% if post.user.profile.avatar.attached? %>
-                  <%= image_tag(post.user.profile.avatar) %>
-                <% end %>
-               <% end %>
-
-               <strong class = "post-name"><%= post.user.username.capitalize %></strong>
-
-               <strong> <%= post.title %> </strong>
-               <div>
-                 <% if post.images.attached? %>
-                   <% post.images.each do |image| %>
-                    <%= image_tag (image) %>
+                   <% if post.user.profile.present? %>
+                     <% if post.user.profile.avatar.attached? %>
+                       <div class="media-left">
+                         <figure class="image is-64x64">
+                           <%= image_tag(post.user.profile.avatar) %>
+                         </figure>
+                       </div>
+                     <% end %>
                    <% end %>
-                 <% end %>
-               </div>
+                   <strong class = "post-name"><%= post.user.username.capitalize %></strong>
+               <div class="media-content">
+
+                <strong> <%= post.title %> </strong>
+                 <div>
+                   <% if post.images.attached? %>
+                     <% post.images.each do |image| %>
+                      <%= image_tag(image) %>
+                     <% end %>
+                   <% end %>
+                 </div>
+               <p>
 <!--backup
                  <% if current_user.id == post.user_id %>
                    <%=link_to "delete", post_path(post.id), method: :delete, data: { confirm: "Are you sure"} %>
                  <% end %>
 -->
-               <small><em>post <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.</em></small>
+               <small><a href="#">Like</a> . <a href="#">Reply</a> . <em><%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.</em></small>
+               </p>
 
 <!-- show comments for each post -->
                  <% post.comments.each do |show_comment| %>
@@ -50,7 +55,11 @@
                      <li>
                        <% if show_comment.user.profile.present? %>
                         <% if show_comment.user.profile.avatar.attached? %>
-                          <%= image_tag(show_comment.user.profile.avatar) %>
+                          <div class="media-left">
+                            <figure class="image is-64x64">
+                              <%= image_tag(show_comment.user.profile.avatar) %>
+                            </figure>
+                          </div>
                         <% end %>
                        <% end %>
                        <strong class ="comment-user-name"><%= show_comment.user.username %></strong>
@@ -60,21 +69,23 @@
                        <div>
                          <% if show_comment.images.attached? %>
                            <% show_comment.images.each do |image| %>
-                            <%= image_tag (image) %>
+                            <%= image_tag(image) %><br />
                            <% end %>
                          <% end %>
                        </div>
 
 
 <!-- Restrict one user from deleting and editing other user's comment -->
-                       <% if current_user.id == show_comment.user_id %>
-                         <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %>
-                         <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>
-                       <% end %><br />
+                      <p>
+                        <small><a href="#">Like</a> . <a href="#">Reply</a></small>
+                         <% if current_user.id == show_comment.user_id %>
+                           | <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %> |
+                           <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>
+                         <% end %>
+                         <small> . <%= distance_of_time_in_words_to_now(show_comment.created_at, include_seconds: true) %> ago </small>
+                      </p>
 
-                       <small>posted on <%= show_comment.created_at.to_formatted_s(:long) %></small>
-
-                     </li>
+                     </li><br />
                    </ul>
                  <% end %>
 
