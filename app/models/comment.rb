@@ -4,4 +4,5 @@ class Comment < ApplicationRecord
   belongs_to :post
 
   has_many_attached :images, dependent: :destroy
+  has_many :likes, dependent: :destroy
 end
