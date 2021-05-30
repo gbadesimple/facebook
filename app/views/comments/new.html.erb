@@ -6,17 +6,18 @@
         <h1 class="title is-4"> Post a Comment </h1>
 
         <article class="media">
-          <% if @post.user.profile.present? %>
-            <% if @post.user.profile.avatar.attached? %>
+
               <div class="media-left">
                 <figure class="image is-64x64">
-                  <%= image_tag(@post.user.profile.avatar) %>
+                  <% if @post.user.profile.present? %>
+                    <% if @post.user.profile.avatar.attached? %>
+                      <%= image_tag(@post.user.profile.avatar) %>
+                    <% end %>
+                  <% end %>
+                  <strong> <%= @post.user.username.capitalize %> </strong>
                 </figure>
               </div>
-            <% end %>
-          <% end %>
 
-          <strong> <%= @post.user.username.capitalize %> &nbsp;</strong> &nbsp;
 
           <div class="media-content">
             <div class="content">
@@ -31,7 +32,20 @@
 
                 <%= render "error" %>
 
-                <small><a href="#">like</a> . <a href="#">Reply</a> . <%= distance_of_time_in_words_to_now(@post.created_at, include_seconds: true)%> ago</small>
+                <small>
+                  <% if @post.likes.count == 0 %>
+                   <% "" %>
+                  <% else %>
+                   <%= @post.likes.count %> <%= @post.likes.count == 1 ? "like" : "likes" %> .
+                  <% end %>
+                  <% before_like = @post.likes.find { |like| current_user.id == like.user_id } %>
+                   <% if before_like %>
+                     <%= link_to "Unlike", post_like_path(@post.id, before_like), method: :DELETE %>
+                   <% else %>
+                     <%= link_to "Like", post_likes_path(@post.id), method: :POST %>
+                   <% end %>
+                  . <%= distance_of_time_in_words_to_now(@post.created_at, include_seconds: true)%> ago
+                </small>
               </p>
             </div>
 

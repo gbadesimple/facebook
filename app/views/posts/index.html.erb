@@ -20,19 +20,20 @@
            <% @posts.each do |post| %>
              <article class="media box">
 
+               <div class="media-left">
+                 <figure class="image is-64x64">
                    <% if post.user.profile.present? %>
                      <% if post.user.profile.avatar.attached? %>
-                       <div class="media-left">
-                         <figure class="image is-64x64">
-                           <%= image_tag(post.user.profile.avatar) %>
-                         </figure>
-                       </div>
+                      <%= image_tag(post.user.profile.avatar) %>
                      <% end %>
-                   <% end %>
-                   <strong class = "post-name"><%= post.user.username.capitalize %></strong>
+                    <% end %>
+                    <strong class = "post-name"><%= post.user.username.capitalize %></strong>
+                 </figure>
+               </div>
+
                <div class="media-content">
 
-                <strong> <%= post.title %> </strong>
+                <strong> <%= post.title %> </strong><br />
                  <div>
                    <% if post.images.attached? %>
                      <% post.images.each do |image| %>
@@ -46,7 +47,22 @@
                    <%=link_to "delete", post_path(post.id), method: :delete, data: { confirm: "Are you sure"} %>
                  <% end %>
 -->
-               <small><a href="#">Like</a> . <a href="#">Reply</a> . <em><%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.</em></small>
+               <small>
+                 <% if post.likes.count == 0 %>
+                  <% "" %>
+                 <% else %>
+                  <%= post.likes.count %> <%= post.likes.count == 1 ? "like" : "likes" %> .
+                 <% end %>
+                 <% before_like = post.likes.find { |like| current_user.id == like.user_id } %>
+                  <% if before_like %>
+                    <%= link_to "Unlike", post_like_path(post.id, before_like), method: :DELETE %>
+                  <% else %>
+                    <%= link_to "Like", post_likes_path(post.id), method: :POST %>
+                  <% end %>
+                 <em>
+                   <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.
+                 </em>
+              </small>
                </p>
 
 <!-- show comments for each post -->
@@ -77,7 +93,7 @@
 
 <!-- Restrict one user from deleting and editing other user's comment -->
                       <p>
-                        <small><a href="#">Like</a> . <a href="#">Reply</a></small>
+                        <small><%=link_to "Like", post_likes_path(show_comment.id), method: :POST %> . <a href="#">Reply</a></small>
                          <% if current_user.id == show_comment.user_id %>
                            | <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %> |
                            <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>
