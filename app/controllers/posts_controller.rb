@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  include PostsHelper
 
   def index
     @posts = Post.all.order(:created_at => "desc")
@@ -36,9 +37,4 @@ class PostsController < ApplicationController
     end
   end
 
-  private
-
-  def post_params
-    params.require(:post).permit(:title, images: [] )
-  end
 end

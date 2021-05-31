@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  include CommentsHelper
 
   def edit
     @comment = Comment.find(params[:id])
@@ -57,14 +58,6 @@ class CommentsController < ApplicationController
 
       redirect_to posts_path
     end
-  end
-
-
-
-  private
-
-  def params_comment
-    params.require(:comment).permit(:body, images: [] )
   end
 
 end
