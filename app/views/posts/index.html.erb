@@ -33,7 +33,7 @@
 
                <div class="media-content">
 
-                <strong> <%= post.title %> </strong><br />
+                <strong> <%= post.title %> </strong>
                  <div>
                    <% if post.images.attached? %>
                      <% post.images.each do |image| %>
@@ -62,7 +62,7 @@
                  <em>
                    <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.
                  </em>
-              </small>
+              </small><br /><br />
                </p>
 
 <!-- show comments for each post -->
@@ -93,7 +93,22 @@
 
 <!-- Restrict one user from deleting and editing other user's comment -->
                       <p>
-                        <small><%=link_to "Like", post_likes_path(show_comment.id), method: :POST %> . <a href="#">Reply</a></small>
+                        <small>
+                          <% if show_comment.commentlikes.count == 0 %>
+                           <% "" %>
+                          <% else %>
+                           <%= show_comment.commentlikes.count %> <%= show_comment.commentlikes.count == 1 ? "like" : "likes" %> .
+                          <% end %>
+
+                          <% before_commentlike = show_comment.commentlikes.find { |like_comment| current_user.id == like_comment.user_id } %>
+
+                           <% if before_commentlike %>
+                             <%= link_to "Unlike", post_comment_commentlike_path(post.id, show_comment.id, before_commentlike), method: :DELETE %>
+                           <% else %>
+                             <%=link_to "Like", post_comment_commentlikes_path(post.id, show_comment.id), method: :POST %>
+                           <% end %>
+                        </small>
+
                          <% if current_user.id == show_comment.user_id %>
                            | <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %> |
                            <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>

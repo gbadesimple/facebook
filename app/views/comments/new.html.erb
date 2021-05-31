@@ -33,18 +33,7 @@
                 <%= render "error" %>
 
                 <small>
-                  <% if @post.likes.count == 0 %>
-                   <% "" %>
-                  <% else %>
-                   <%= @post.likes.count %> <%= @post.likes.count == 1 ? "like" : "likes" %> .
-                  <% end %>
-                  <% before_like = @post.likes.find { |like| current_user.id == like.user_id } %>
-                   <% if before_like %>
-                     <%= link_to "Unlike", post_like_path(@post.id, before_like), method: :DELETE %>
-                   <% else %>
-                     <%= link_to "Like", post_likes_path(@post.id), method: :POST %>
-                   <% end %>
-                  . <%= distance_of_time_in_words_to_now(@post.created_at, include_seconds: true)%> ago
+                  <%= render "likepost" %>
                 </small>
               </p>
             </div>
@@ -74,7 +63,23 @@
                             <%= image_tag(image) %><br>
                           <% end %>
                         <% end %>
-                        <small><a href="#">like</a> . <a href="#">Reply</a> . <%= distance_of_time_in_words_to_now(comment.created_at, include_seconds: true)%> ago</small>
+
+                        <small>
+                          <% if comment.commentlikes.count == 0 %>
+                           <% "" %>
+                          <% else %>
+                           <%= comment.commentlikes.count %> <%= comment.commentlikes.count == 1 ? "like" : "likes" %> .
+                          <% end %>
+
+                          <% before_commentlike = comment.commentlikes.find { |like_comment| current_user.id == like_comment.user_id } %>
+
+                           <% if before_commentlike %>
+                             <%= link_to "Unlike", post_comment_commentlike_path(@post.id, comment.id, before_commentlike), method: :DELETE %>
+                           <% else %>
+                             <%=link_to "Like", post_comment_commentlikes_path(@post.id, comment.id), method: :POST %>
+                           <% end %>
+                          . <%= distance_of_time_in_words_to_now(comment.created_at, include_seconds: true)%> ago
+                        </small>
                         <br /><br />
                       </p>
                     </div>

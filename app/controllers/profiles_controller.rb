@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
 
       redirect_to root_path
     else
-      flash[:alert] = "We are unable to process your request due to some error(s)."
+      flash[:alert] = "#{@profile.errors.full_messages.join(", ")}, please try again!"
       render :new
     end
   end
@@ -39,7 +39,7 @@ class ProfilesController < ApplicationController
     else
       flash[:alert] = "Update was not successful please try again"
 
-      render :update
+      redirect_to user_profile_path(current_user)
     end
   end
 
