@@ -7,6 +7,12 @@
           (<em class="title is-6"> created <%= distance_of_time_in_words(current_user.profile.created_at, Time.now) %> ago </em>)
         </h1>
 
+        <div class="">
+          <% if current_user.profile.avatar.attached? %>
+            <%= image_tag(current_user.profile.avatar) %>
+          <% end %>
+        </div>
+
         <div>
           <% if current_user.profile.date_of_birth.month.day == Date.new.month.day %>
           <em> Happy birthday! May today be memorable and bring blesssings your way now and always. <br />

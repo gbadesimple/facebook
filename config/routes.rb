@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root "users#index"
 
   resources :users do
+    resources :friend_requests
     resource :profile, except: [:index]
   end
 
@@ -15,7 +16,6 @@ Rails.application.routes.draw do
       resources :commentlikes, only: [:create, :destroy]
     end
   end
-
 
 
 end

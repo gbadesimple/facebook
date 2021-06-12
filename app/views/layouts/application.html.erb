@@ -28,6 +28,15 @@
           <div class="field is-grouped">
 
             <% if user_signed_in? %>
+              <% if current_user.friend_requests_as_receiver.exists? %>
+                <p>
+                  Pending friend request:
+                  <%= link_to (current_user.friend_requests_as_receiver.count), user_friend_requests_path(current_user.id), class: "button is-inverted" %>
+                </p>
+              <% else %>
+                <%= " " %>
+              <% end %>
+
               <p class="control">
                 <%= link_to current_user.username.humanize.capitalize, edit_user_registration_path, class: "button is-info" %>
               </p>

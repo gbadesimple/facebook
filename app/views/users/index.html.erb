@@ -5,6 +5,8 @@
 
         <p class="title is-5"> All users </p>
 
+        <p><%= link_to "Friend Request", user_friend_requests_path(current_user.id) %></p>
+
         <% @users.each do |f| %>
           <strong> Name: </strong> <em> <%= f.username %> </em>
           <strong> E-mail:</strong> <em> <%= f.email %> </em> <br />
