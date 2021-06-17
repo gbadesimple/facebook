@@ -30,6 +30,7 @@ gem 'bulma-rails', '~> 0.9.1'
 gem 'devise'
 gem 'simple_form'
 
+gem "letter_opener", group: :development
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
