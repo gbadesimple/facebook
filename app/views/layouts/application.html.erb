@@ -28,15 +28,11 @@
           <div class="field is-grouped">
 
             <% if user_signed_in? %>
-              <% if current_user.friend_requests_as_receiver.exists? %>
-                <p>
-                  Pending friend request:
-                  <%= link_to (current_user.friend_requests_as_receiver.count), user_friend_requests_path(current_user.id), class: "button is-inverted" %>
-                </p>
-              <% else %>
-                <%= " " %>
+              <% if @friendrequests.count > 0 %>
+                <%= link_to @friendrequests.count == 1 ? "You have #{@friendrequests.count} friend request" : "You have #{@friendrequests.count} friend requests",
+                    users_path, class: "button is-inverted" %>
               <% end %>
-
+<!-- nav links sign_in and sign_out -->
               <p class="control">
                 <%= link_to current_user.username.humanize.capitalize, edit_user_registration_path, class: "button is-info" %>
               </p>
