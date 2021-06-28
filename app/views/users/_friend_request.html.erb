@@ -1,8 +1,16 @@
 <% if @friendrequests.count > 0 %>
   <strong><%= @friendrequests.count == 1 ? "You have #{@friendrequests.count} friend request:" : "You have #{@friendrequests.count} friend requests:" %></strong><br />
     <% @friendrequests.each do |request| %>
-      <%= request.sender.username.capitalize %> <%= link_to "Accept", user_friend_request_path(current_user.id, request.id, status: true), method: :PUT, class: "button is-info" %> |
-                                      <%= link_to "Ignore", user_friend_request_path(current_user.id, request.id), method: :DELETE,
-                                          data: {confirm: "Are you sure you want to ignore #{request.sender.username.capitalize} ?"}, class:"button is-danger" %><br />
+      <% if request.sender.profile.present? %>
+        <%= request.sender.profile.firstname.capitalize %> <%= request.sender.profile.lastname.capitalize %>
+        <%= link_to "Accept", user_friend_request_path(current_user.id, request.id, status: true), method: :PUT, class: "button is-info" %> |
+        <%= link_to "Decline", user_friend_request_path(current_user.id, request.id), method: :DELETE,
+            data: {confirm: "Are you sure you want to ignore #{request.sender.username.capitalize} ?"}, class:"button is-danger" %><br />
+      <% else %>
+        <%= request.sender.username.capitalize %>
+        <%= link_to "Accept", user_friend_request_path(current_user.id, request.id, status: true), method: :PUT, class: "button is-info" %> |
+        <%= link_to "Decline", user_friend_request_path(current_user.id, request.id), method: :DELETE,
+              data: {confirm: "Are you sure you want to ignore #{request.sender.username.capitalize} ?"}, class:"button is-danger" %><br />
+      <% end %>
     <% end %><br />
 <% end %>

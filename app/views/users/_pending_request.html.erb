@@ -1,6 +1,10 @@
 <% if @pending_requests.count > 0 %>
   <strong><%= @pending_requests.count == 1 ? "Pending request:" : "Pending requests:" %> <%= @pending_requests.count %></strong><br />
     <% @pending_requests.each do |pending_request| %>
-      <%= pending_request.username.capitalize %> <br />
+      <% if pending_request.profile.present? %>
+        <%= pending_request.profile.firstname.capitalize %> <%= pending_request.profile.lastname.capitalize %><br />
+      <% else %>
+        <%= pending_request.username.capitalize %> <br />
+      <% end %>
     <% end %><br />
 <% end %>
