@@ -1,0 +1,7 @@
+<% if @friends.count > 0 %>
+  <strong><%= @friends.count == 1 ? "Friend:" : "Friends:" %> <%= @friends.count %></strong><br />
+    <% @friends.each do |friend| %>
+      <%= friend.sender.username.capitalize %> <%= link_to "Unfriend", user_friend_request_path(current_user.id, friend.id), method: :DELETE,
+                                data: {confirm: "Are you sure you want to unfriend #{friend.sender.username.capitalize} ?"} %><br />
+    <% end %><br />
+<% end %>

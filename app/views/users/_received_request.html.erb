@@ -1,0 +1,6 @@
+<% if @received_requests.count > 0 %>
+  <strong><%= @received_requests.count == 1 ? "Person I sent friend request:" : "People I sent friend request:" %></strong><br />
+    <% @received_requests.each do |received_request| %>
+      <%= received_request.username.capitalize %><br />
+    <% end %><br />
+<% end %>

@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
 
   def show
     @profile = Profile.find_by_user_id(params[:user_id])
+    @friendrequests = current_user.friend_requests_as_receiver.select{ |request| request.status == false }
   end
 
   def new

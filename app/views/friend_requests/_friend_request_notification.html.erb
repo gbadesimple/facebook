@@ -1,0 +1,20 @@
+<h1 class="title is-5">
+  Friend Request
+</h1>
+
+<% @requests.each do |request| %>
+
+  <% if request.status == false %>
+    <% if request.sender.profile.present? %>
+      <strong> <%= request.sender.profile.firstname.capitalize %> <%= request.sender.profile.lastname.capitalize %> </strong>
+      <%= link_to "Accept", user_friend_request_path(status: true, :id => request.id), method: :PUT %> |
+      <%= link_to "Ignore", user_friend_request_path(:id => request.id), method: :DELETE, data: {confirm: "Are you sure you want to ignore '#{request.sender.username}' request?"} %><br />
+
+    <% else %>
+      <strong>  <%= request.sender.username %> </strong>
+      <%= link_to "Accept", user_friend_request_path(status: true, :id => request.id), method: :PUT %> |
+      <%= link_to "Ignore", user_friend_request_path(:id => request.id), method: :DELETE, data: {confirm: "Are you sure you want to ignore '#{request.sender.username}' request?"} %><br />
+    <% end %>
+  <% end %>
+
+<% end %><br />

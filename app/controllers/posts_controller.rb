@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all.order(:created_at => "desc")
     @post = Post.new
+    @friendrequests = current_user.friend_requests_as_receiver.select{ |request| request.status == false }
   end
 
   def show

@@ -7,9 +7,27 @@
 
         <p><%= link_to "Friend Request", user_friend_requests_path(current_user.id) %></p>
 
-        <% @users.each do |f| %>
-          <strong> Name: </strong> <em> <%= f.username %> </em>
-          <strong> E-mail:</strong> <em> <%= f.email %> </em> <br />
+        <% @users.each do |user| %>
+          <% next if current_user.id == user.id %>
+            <% if user.profile.present? %>
+              <strong><%= user.profile.firstname.capitalize %> <%= user.profile.lastname.capitalize %> </strong>
+                <%= link_to "Send Friend Request",  user_friend_requests_path(receiver_id: user.id, user_id: current_user.id), method: :POST %><br />
+            <% else %>
+              <strong><%= user.username.capitalize %> </strong>
+                <%= link_to "Send Friend Request",  user_friend_requests_path(receiver_id: user.id, user_id: current_user.id), method: :POST %><br />
+            <% end %>
+        <% end %><br />
+
+        <%= render "friend_request" %>
+
+        <%= render "friends" %>
+
+        <%= render "pending_request" %>
+
+        <%= render "received_request" %>
+
+        <% @posts.each do |post| %>
+        <%= post.title %><br />
         <% end %><br />
 
         <% if current_user.profile.present? %>
