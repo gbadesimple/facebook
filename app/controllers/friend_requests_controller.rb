@@ -1,5 +1,6 @@
 class FriendRequestsController < ApplicationController
-
+  include FriendRequestsHelper
+  
   def index
     @requests = current_user.friend_requests_as_receiver
     @friendrequests = current_user.friend_requests_as_receiver.select{ |request| request.status == false }
@@ -50,19 +51,5 @@ class FriendRequestsController < ApplicationController
       redirect_to users_path
     end
   end
-
-  private
-  def already_exist_request_first_end
-    receiver_id = params[:receiver_id]
-    sender_id = params[:user_id]
-    FriendRequest.where("sender_id = ?  AND  receiver_id = ?", sender_id, receiver_id).exists?
-  end
-
-  def already_exist_request_second_end
-    receiver_id = params[:receiver_id]
-    sender_id = params[:user_id]
-    FriendRequest.where("sender_id = ?  AND  receiver_id = ?", receiver_id, sender_id,).exists?
-  end
-
 
 end

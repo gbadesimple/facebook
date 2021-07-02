@@ -1,19 +1,22 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
   include ProfilesHelper
+  include ApplicationHelper
 
   def show
     @profile = Profile.find_by_user_id(params[:user_id])
-    @friendrequests = current_user.friend_requests_as_receiver.select{ |request| request.status == false }
+    friendrequests
   end
 
   def new
     @profile = Profile.new
     @user = User.find(params[:user_id])
+    friendrequests
   end
 
   def edit
     @profile = Profile.find_by_user_id(params[:user_id])
+    friendrequests
   end
 
   def create

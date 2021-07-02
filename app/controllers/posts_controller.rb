@@ -1,11 +1,13 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   include PostsHelper
+  include ApplicationHelper
 
   def index
-    @posts = Post.all.order(:created_at => "desc")
+    @posts = current_user.i_and_my_friends_and_our_posts  #Timeline
     @post = Post.new
-    @friendrequests = current_user.friend_requests_as_receiver.select{ |request| request.status == false }
+    friends
+    friendrequests
   end
 
   def show

@@ -8,7 +8,7 @@
 -->
       <div class="column is-half">
 
-        <h1 class="title is-4"> Post </h1>
+        <h1 class="title is-4"> Post - Timeline </h1>
 
         <article class="media box">
           <div class="media-content">
@@ -17,115 +17,11 @@
         </article>
 
 
-           <% @posts.each do |post| %>
-             <article class="media box">
+        <%= render "shared/post" %>
+      </div>
 
-               <div class="media-left">
-                 <figure class="image is-64x64">
-                   <% if post.user.profile.present? %>
-                     <% if post.user.profile.avatar.attached? %>
-                      <%= image_tag(post.user.profile.avatar) %>
-                     <% end %>
-                    <% end %>
-                    <strong class = "post-name"><%= post.user.username.capitalize %></strong>
-                 </figure>
-               </div>
-
-               <div class="media-content">
-
-                <strong> <%= post.title %> </strong>
-                 <div>
-                   <% if post.images.attached? %>
-                     <% post.images.each do |image| %>
-                      <%= image_tag(image) %>
-                     <% end %>
-                   <% end %>
-                 </div>
-               <p>
-<!--backup
-                 <% if current_user.id == post.user_id %>
-                   <%=link_to "delete", post_path(post.id), method: :delete, data: { confirm: "Are you sure"} %>
-                 <% end %>
--->
-               <small>
-                 <% if post.likes.count == 0 %>
-                  <% "" %>
-                 <% else %>
-                  <%= post.likes.count %> <%= post.likes.count == 1 ? "like" : "likes" %> .
-                 <% end %>
-                 <% before_like = post.likes.find { |like| current_user.id == like.user_id } %>
-                  <% if before_like %>
-                    <%= link_to "Unlike", post_like_path(post.id, before_like), method: :DELETE %>
-                  <% else %>
-                    <%= link_to "Like", post_likes_path(post.id), method: :POST %>
-                  <% end %><br />
-                 <em>
-                   <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.
-                 </em>
-              </small><br /><br />
-               </p>
-
-<!-- show comments for each post -->
-                 <% post.comments.each do |show_comment| %>
-                   <ul>
-                     <li>
-                       <% if show_comment.user.profile.present? %>
-                        <% if show_comment.user.profile.avatar.attached? %>
-                          <div class="media-left">
-                            <figure class="image is-64x64">
-                              <%= image_tag(show_comment.user.profile.avatar) %>
-                            </figure>
-                          </div>
-                        <% end %>
-                       <% end %>
-                       <strong class ="comment-user-name"><%= show_comment.user.username %></strong>
-
-                       <%= show_comment.body.capitalize %>
-
-                       <div>
-                         <% if show_comment.images.attached? %>
-                           <% show_comment.images.each do |image| %>
-                            <%= image_tag(image) %><br />
-                           <% end %>
-                         <% end %>
-                       </div>
-
-
-<!-- Restrict one user from deleting and editing other user's comment -->
-                      <p>
-                        <small>
-                          <% if show_comment.commentlikes.count == 0 %>
-                           <% "" %>
-                          <% else %>
-                           <%= show_comment.commentlikes.count %> <%= show_comment.commentlikes.count == 1 ? "like" : "likes" %> .
-                          <% end %>
-
-                          <% before_commentlike = show_comment.commentlikes.find { |like_comment| current_user.id == like_comment.user_id } %>
-
-                           <% if before_commentlike %>
-                             <%= link_to "Unlike", post_comment_commentlike_path(post.id, show_comment.id, before_commentlike), method: :DELETE %>
-                           <% else %>
-                             <%=link_to "Like", post_comment_commentlikes_path(post.id, show_comment.id), method: :POST %>
-                           <% end %>
-                        </small>
-
-                         <% if current_user.id == show_comment.user_id %>
-                           | <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %> |
-                           <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>
-                         <% end %>
-                         <small> . <%= distance_of_time_in_words_to_now(show_comment.created_at, include_seconds: true) %> ago </small>
-                      </p>
-
-                     </li><br />
-                   </ul>
-                 <% end %>
-
-                   <p>
-                     <%= link_to "write comment", new_post_comment_path(post.id), class: "button is-light" %>
-                   </p><br />
-                 </div>
-             </article>
-           <% end %>
+      <div>
+        <%= render "shared/friends" %>
       </div>
 
 

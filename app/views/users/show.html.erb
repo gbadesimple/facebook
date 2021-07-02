@@ -1,0 +1,54 @@
+<section class="section">
+  <div class="container">
+    <div class="columns">
+
+<article class="media box">
+  <% if @profile.present? %>
+  <div class="media-left">
+    <figure class="image is-64x64">
+      <%= image_tag(@profile.avatar) if @profile.avatar.attached? %><br />
+    </figure>
+  </div>
+
+  <div class="media-content">
+      <strong> Name: </strong> <%= @profile.firstname.capitalize %> <%= @profile.lastname.capitalize %><br />
+      <strong>Marital status: </strong><%= @profile.marital_status.capitalize %><br />
+      <strong>Sex: </strong><%= @profile.sex.capitalize %><br />
+      <strong>Date of Birth: </strong><%= @profile.date_of_birth.to_formatted_s(:long_ordinal) %><br />
+      <strong>Age: </strong><%= Time.new.year - @profile.date_of_birth.year %><br />
+      <strong>Occupation: </strong><%= @profile.occupation.capitalize %><br />
+      <strong>Religion: </strong><%= @profile.religion.capitalize %><br />
+      <strong>Phone number: </strong><%= @profile.phone_number %><br />
+      <strong>Place of Residence: </strong><%= @profile.place_of_residence %><br />
+      <strong>Qualification: </strong><%= @profile.qualification.capitalize %><br />
+      <strong>Study: </strong><%= @profile.study.capitalize %><br />
+      <strong>Local Government Area: </strong><%= @profile.lga %><br />
+      <strong>State of Origin: </strong><%= @profile.state_of_origin.capitalize %><br />
+    <% else %>
+      <h3 class="title is-5"> No profile information about this user at the moment </h3>
+    <% end %><br />
+  </div>
+</article>
+
+
+      <div class="column is-half">
+        <h1 class="title is-4"> <%= @user.username.capitalize %>'s Posts </h1>
+
+          <div class="media-content">
+            <% if @posts.present? %>
+            <%= render "shared/post" %>
+            <% else %>
+            <h1 class="title is-4"> <%= @user.username.capitalize %> has no post yet! </h1>
+            <% end %>
+          </div>
+      </div>
+
+      <div>
+        <%= link_to "Post - Timeline", posts_path,class:"button is-info" %>
+        <%= link_to "Users and Friends", users_path, class:"button is-link" %>
+      </div>
+
+
+    </div>
+  </div>
+</section>

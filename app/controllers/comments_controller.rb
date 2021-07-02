@@ -1,15 +1,18 @@
 class CommentsController < ApplicationController
   include CommentsHelper
+  include ApplicationHelper
 
   def edit
     @comment = Comment.find(params[:id])
     @post = Post.find(params[:post_id])
+    friendrequests
   end
 
   def new
     @comment = Comment.new
     @post = Post.find(params[:post_id])
     @comments = @post.comments.all.order(created_at: :ASC)
+    friendrequests
   end
 
   def create

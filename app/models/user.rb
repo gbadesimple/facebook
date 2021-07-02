@@ -31,7 +31,7 @@ class User < ApplicationRecord
     posts.each do |post|
       our_post.push(post) # our_post << post
     end
-    our_post
+    our_post.sort!{|first, last| last <=> first}
   end
 
 end

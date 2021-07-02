@@ -1,11 +1,19 @@
 <section class="section">
   <div class="container">
+    <div class="columns">
 
-      <article class="message">
+      <article class="box">
+
+        <% if current_user.profile.present? %>
+          <%= link_to "View my profile", user_profile_path(current_user), class: "button is-primary" %>
+        <% else %>
+          <%= link_to "Create new profile", new_user_profile_path(current_user), class: "button is-info" %> <br />
+        <% end %>
+
+        <%= link_to "Post - Timeline", posts_path, class:"button is-link" %>
+        <hr />
 
         <p class="title is-5"> All users </p>
-
-        <p><%= link_to "Friend Request", user_friend_requests_path(current_user.id) %></p>
 
         <% @users.each do |user| %>
           <% next if current_user.id == user.id %>
@@ -19,30 +27,23 @@
                 <%= link_to "User details", user_path(user.id) %> <br />
             <% end %>
         <% end %><br />
-
-        <%= render "friend_request" %>
-
-        <%= render "friends" %>
-
-        <%= render "pending_request" %>
-
-        <%= render "received_request" %>
-
-        <% @posts.each do |post| %>
-        <%= post.title %><br />
-        <% end %><br />
-
-        <% if current_user.profile.present? %>
-          <%= link_to "View my profile", user_profile_path(current_user), class: "button is-primary" %>
-        <% else %>
-          <%= link_to "Create new profile", new_user_profile_path(current_user), class: "button is-info" %> <br />
-        <% end %>
-
       </article>
-        <strong> You want to know something? just love this </strong><br />
 
-        <p> Continue to <%= link_to "Post", posts_path %> </p>
+        <div class="box">
+          <%= render "friend_request" %>
+          <%= render "pending_request" %>
+        </div>
+
+        <article class="media box">
+        <div class="media-content">
+          <%= render "shared/friends" %>
+          <%= render "received_request" %>
+        </div>
+        </article>
 
 
+
+
+      </div>
     </div>
 </section>
