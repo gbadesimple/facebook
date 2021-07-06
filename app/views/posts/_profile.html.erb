@@ -17,7 +17,7 @@
           <div class="content">
             <p>
               <% if current_user.profile.present? %>
-                <strong><%= current_user.profile.firstname %> <%= current_user.profile.lastname.capitalize %> </strong><br />
+                <strong><%= current_user.profile.firstname.capitalize %> <%= current_user.profile.lastname.capitalize %> </strong><br />
                 <strong><%= current_user.profile.marital_status.capitalize %> </strong><br />
                 <strong><%= current_user.profile.occupation.capitalize %> </strong>
               <% else %>

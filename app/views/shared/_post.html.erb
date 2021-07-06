@@ -1,16 +1,16 @@
 <% @posts.each do |post| %>
   <article class="media box">
 
-    <div class="media-left">
-      <figure class="image is-64x64">
+    <figure class="media-left">
+      <p class="image is-64x64">
         <% if post.user.profile.present? %>
           <% if post.user.profile.avatar.attached? %>
            <%= image_tag(post.user.profile.avatar) %>
           <% end %>
          <% end %>
          <strong><%= post.user.username.capitalize %></strong>
-      </figure>
-    </div>
+      </p>
+    </figure>
 
     <div class="media-content">
 
@@ -40,9 +40,7 @@
        <% else %>
          <%= link_to "Like", post_likes_path(post.id), method: :POST %>
        <% end %><br />
-      <em>
-        <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago.
-      </em>
+      <em> <%= distance_of_time_in_words_to_now(post.created_at, include_seconds: true) %> ago. </em>
    </small><br /><br />
     </p>
 
@@ -52,15 +50,17 @@
           <li>
             <% if show_comment.user.profile.present? %>
              <% if show_comment.user.profile.avatar.attached? %>
-               <div class="media-left">
-                 <figure class="image is-64x64">
+               <figure class="media-left">
+                 <p class="image is-64x64">
                    <%= image_tag(show_comment.user.profile.avatar) %>
-                 </figure>
-               </div>
+                 </p>
+               </figure>
              <% end %>
             <% end %>
             <strong><%= show_comment.user.username %></strong>
 
+<article class="media-content">
+  <div class="content">
             <%= show_comment.body.capitalize %>
 
             <div>
@@ -93,10 +93,11 @@
               <% if current_user.id == show_comment.user_id %>
                 | <%= link_to "delete", post_comment_path(post.id, show_comment.id), method: :delete, data: {confirm: "Are you sure?"} %> |
                 <%= link_to "edit", edit_post_comment_path(post.id, show_comment.id) %>
-              <% end %>
-              <small> . <%= distance_of_time_in_words_to_now(show_comment.created_at, include_seconds: true) %> ago </small>
+              <% end %><br />
+              <small> <%= distance_of_time_in_words_to_now(show_comment.created_at, include_seconds: true) %> ago </small>
            </p>
-
+  </div>
+</article>
           </li><br />
         </ul>
       <% end %>
