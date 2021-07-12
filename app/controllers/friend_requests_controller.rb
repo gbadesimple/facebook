@@ -1,15 +1,5 @@
 class FriendRequestsController < ApplicationController
   include FriendRequestsHelper
-  
-  def index
-    @requests = current_user.friend_requests_as_receiver
-    @friendrequests = current_user.friend_requests_as_receiver.select{ |request| request.status == false }
-  end
-
-  def new
-    @users = User.order(:created_at => "DESC")
-    #@request = FriendRequest.new
-  end
 
   def create
     sender = params[:user_id]
