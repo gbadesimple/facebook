@@ -18,5 +18,4 @@ class UsersController < ApplicationController
     friends
     friendrequests
   end
-
 end

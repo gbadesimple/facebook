@@ -42,9 +42,9 @@
           <p class="heading"> Personals </p>
           <p class="title is-6">
             <% if current_user.profile.present? %>
-              <%= link_to "View my profile", user_profile_path(current_user), class: "button is-primary" %>
+              <%= link_to "View Profile", user_profile_path(current_user), class: "button is-primary" %>
             <% else %>
-              <%= link_to "Create new profile", new_user_profile_path(current_user), class: "button is-info" %> <br />
+              <%= link_to "Create Profile", new_user_profile_path(current_user), class: "button is-info" %> <br />
             <% end %>
           </p>
         </div>

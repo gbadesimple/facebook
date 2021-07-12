@@ -28,7 +28,7 @@
           <div class="field is-grouped">
 
             <% if user_signed_in? %>
-              <% if @friendrequests.count > 0 %>
+              <% if @friendrequests.present? %>
                 <%= link_to @friendrequests.count == 1 ? "You have #{@friendrequests.count} friend request" : "You have #{@friendrequests.count} friend requests",
                     users_path, class: "button is-inverted" %>
               <% end %>

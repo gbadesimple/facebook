@@ -1,4 +1,4 @@
-<% if @pending_requests.count > 0 %>
+<% if @pending_requests.present? %>
   <strong><%= @pending_requests.count == 1 ? "Pending request:" : "Pending requests:" %> <%= @pending_requests.count %></strong><br />
     <% @pending_requests.each do |pending_request| %>
       <% if pending_request.profile.present? %>

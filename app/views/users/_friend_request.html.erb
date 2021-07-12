@@ -1,4 +1,4 @@
-<% if @friendrequests.count > 0 %>
+<% if @friendrequests.present? %>
   <strong><%= @friendrequests.count == 1 ? "You have #{@friendrequests.count} friend request:" : "You have #{@friendrequests.count} friend requests:" %></strong><br />
     <% @friendrequests.each do |request| %>
       <% if request.sender.profile.present? %>

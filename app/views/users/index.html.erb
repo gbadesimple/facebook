@@ -2,15 +2,15 @@
   <div class="container">
     <div class="columns">
 
-      <article class="box">
+      <article class="column is-one-third">
 
         <% if current_user.profile.present? %>
           <%= link_to "View my profile", user_profile_path(current_user), class: "button is-primary" %>
         <% else %>
-          <%= link_to "Create new profile", new_user_profile_path(current_user), class: "button is-info" %> <br />
+          <%= link_to "Create Profile", new_user_profile_path(current_user), class: "button is-info" %>
         <% end %>
 
-        <%= link_to "Post - Timeline", posts_path, class:"button is-link" %>
+        <%= link_to "Timeline", posts_path, class:"button is-link" %>
         <hr />
 
         <p class="title is-5"> All users </p>
@@ -29,19 +29,14 @@
         <% end %><br />
       </article>
 
-        <div class="box">
+        <div class="column is-one-fifth">
           <%= render "friend_request" %>
-          <%= render "pending_request" %>
         </div>
 
-        <article class="media box">
-        <div class="media-content">
+        <article class="column is-half">
           <%= render "shared/friends" %>
           <%= render "received_request" %>
-        </div>
         </article>
-
-
 
 
       </div>
