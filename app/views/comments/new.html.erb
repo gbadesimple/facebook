@@ -77,8 +77,8 @@
                              <%= link_to "Unlike", post_comment_commentlike_path(@post.id, comment.id, before_commentlike), method: :DELETE %>
                            <% else %>
                              <%=link_to "Like", post_comment_commentlikes_path(@post.id, comment.id), method: :POST %>
-                           <% end %>
-                          . <%= distance_of_time_in_words_to_now(comment.created_at, include_seconds: true)%> ago
+                           <% end %><br />
+                           <%= distance_of_time_in_words_to_now(comment.created_at, include_seconds: true)%> ago
                         </small>
                         <br /><br />
                       </p>

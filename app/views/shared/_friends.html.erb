@@ -1,14 +1,20 @@
-<% if @friends.count > 0 %>
-  <strong><%= @friends.count == 1 ? "Friend:" : "Friends:" %> <%= @friends.count %></strong><br />
-    <% @friends.each do |friend| %>
-      <% if friend.sender.profile.present? %>
-        <%= friend.sender.profile.firstname.capitalize %> <%= friend.sender.profile.lastname.capitalize %>
-        <%= link_to "Unfriend", user_friend_request_path(current_user.id, friend.id), method: :DELETE,
-                data: {confirm: "Are you sure you want to unfriend #{friend.sender.username.capitalize} ?"} %><br />
-      <% else %>
-        <%= friend.sender.username.capitalize %>
-        <%= link_to "Unfriend", user_friend_request_path(current_user.id, friend.id), method: :DELETE,
-                  data: {confirm: "Are you sure you want to unfriend #{friend.sender.username.capitalize} ?"} %><br />
+<div>
+  <% if @friends.count > 0 %>
+  <nav class="panel">
+    <p class="panel-heading"><%= @friends.count == 1 ? "Friend:" : "Friends:" %> <%= @friends.count %> </p>
+      <% @friends.each do |friend| %>
+        <p class="panel-block">
+          <% if friend.sender.profile.present? %>
+            <%= friend.sender.profile.firstname.capitalize %> <%= friend.sender.profile.lastname.capitalize %> >>
+            <%= link_to "Unfriend", user_friend_request_path(current_user.id, friend.id), method: :DELETE, class: "button is-info",
+                    data: {confirm: "Are you sure you want to unfriend #{friend.sender.profile.firstname.capitalize} #{friend.sender.profile.lastname.capitalize} ?"} %><br />
+          <% else %>
+            <%= friend.sender.username.capitalize %> >>
+            <%= link_to "Unfriend", user_friend_request_path(current_user.id, friend.id), method: :DELETE, class: "button is-info",
+                      data: {confirm: "Are you sure you want to unfriend #{friend.sender.username.capitalize} ?"} %><br />
+          <% end %>
       <% end %>
-    <% end %><br />
-<% end %>
+  <% end %>
+      </p>
+  </nav>
+</div>

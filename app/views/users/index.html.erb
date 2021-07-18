@@ -1,8 +1,8 @@
-<section class="section">
+<div class="section">
   <div class="container">
     <div class="columns">
 
-      <article class="column is-one-third">
+      <article class="column is-centered">
 
         <% if current_user.profile.present? %>
           <%= link_to "View my profile", user_profile_path(current_user), class: "button is-primary" %>
@@ -13,32 +13,38 @@
         <%= link_to "Timeline", posts_path, class:"button is-link" %>
         <hr />
 
-        <p class="title is-5"> All users </p>
+        <div>
+          <nav class="panel">
+            <p class="panel-heading"> All users </p>
+              <% @users.each do |user| %>
+              <% next if current_user.id == user.id %>
+                <p class="panel-block">
+                  <% if user.profile.present? %>
+                    <strong><%= user.profile.firstname.capitalize %> <%= user.profile.lastname.capitalize %></strong> >>
+                      <%= link_to "Send Friend Request",  user_friend_requests_path(receiver_id: user.id, user_id: current_user.id), method: :POST, class:"button is-info" %> |
+                      <%= link_to "User details", user_path(user.id), method: :GET, class:"button is-link" %> <br />
+                  <% else %>
+                    <strong><%= user.username.capitalize %> </strong> >>
+                      <%= link_to "Send Friend Request",  user_friend_requests_path(receiver_id: user.id, user_id: current_user.id), method: :POST, class:"button is-info" %> |
+                      <%= link_to "User details", user_path(user.id), class:"button is-link" %> <br />
+                  <% end %>
+                </p>
+              <% end %>
+          </nav>
+        </div>
 
-        <% @users.each do |user| %>
-          <% next if current_user.id == user.id %>
-            <% if user.profile.present? %>
-              <strong><%= user.profile.firstname.capitalize %> <%= user.profile.lastname.capitalize %> </strong>
-                <%= link_to "Send Friend Request",  user_friend_requests_path(receiver_id: user.id, user_id: current_user.id), method: :POST %> |
-                <%= link_to "User details", user_path(user.id), method: :GET %> <br />
-            <% else %>
-              <strong><%= user.username.capitalize %> </strong>
-                <%= link_to "Send Friend Request",  user_friend_requests_path(receiver_id: user.id, user_id: current_user.id), method: :POST %> |
-                <%= link_to "User details", user_path(user.id) %> <br />
-            <% end %>
-        <% end %><br />
       </article>
 
-        <div class="column is-one-fifth">
+        <div class="column is-quarter">
           <%= render "friend_request" %>
         </div>
 
-        <article class="column is-half">
-          <%= render "shared/friends" %>
+        <article class="column is-quarter">
+          <%= render "shared/friends" %><br /><br />
           <%= render "received_request" %>
         </article>
 
 
       </div>
     </div>
-</section>
+</div>

@@ -1,16 +1,22 @@
-<% if @friendrequests.present? %>
-  <strong><%= @friendrequests.count == 1 ? "You have #{@friendrequests.count} friend request:" : "You have #{@friendrequests.count} friend requests:" %></strong><br />
-    <% @friendrequests.each do |request| %>
-      <% if request.sender.profile.present? %>
-        <%= request.sender.profile.firstname.capitalize %> <%= request.sender.profile.lastname.capitalize %>
-        <%= link_to "Accept", user_friend_request_path(current_user.id, request.id, status: true), method: :PUT %> |
-        <%= link_to "Decline", user_friend_request_path(current_user.id, request.id), method: :DELETE,
-            data: {confirm: "Are you sure you want to ignore #{request.sender.username.capitalize} ?"} %><br />
-      <% else %>
-        <%= request.sender.username.capitalize %>
-        <%= link_to "Accept", user_friend_request_path(current_user.id, request.id, status: true), method: :PUT %> |
-        <%= link_to "Decline", user_friend_request_path(current_user.id, request.id), method: :DELETE,
-              data: {confirm: "Are you sure you want to ignore #{request.sender.username.capitalize} ?"} %><br />
+<div>
+  <% if @friendrequests.present? %>
+  <nav class="panel">
+    <p class="panel-heading"><%= @friendrequests.count == 1 ? "You have #{@friendrequests.count} friend request:" : "You have #{@friendrequests.count} friend requests:" %> </p>
+      <% @friendrequests.each do |request| %>
+        <p class="panel-block">
+          <% if request.sender.profile.present? %>
+            <%= request.sender.profile.firstname.capitalize %> <%= request.sender.profile.lastname.capitalize %> >>
+            <%= link_to "Accept", user_friend_request_path(current_user.id, request.id, status: true), method: :PUT, class: "button is-info" %> |
+            <%= link_to "Decline", user_friend_request_path(current_user.id, request.id), method: :DELETE, class: "button is-danger",
+                data: {confirm: "Are you sure you want to decline #{request.sender.profile.firstname.capitalize} #{request.sender.profile.lastname.capitalize} request?"} %><br />
+          <% else %>
+            <%= request.sender.username.capitalize %> >>
+            <%= link_to "Accept", user_friend_request_path(current_user.id, request.id, status: true), method: :PUT, class: "button is-info" %> |
+            <%= link_to "Decline", user_friend_request_path(current_user.id, request.id), method: :DELETE, class: "button is-danger",
+                  data: {confirm: "Are you sure you want to decline #{request.sender.username.capitalize} request?"} %><br />
+          <% end %>
+        </p>
       <% end %>
-    <% end %><br />
-<% end %>
+  <% end %>
+  </nav>
+</div>
