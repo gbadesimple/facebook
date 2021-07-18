@@ -6,6 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  devise :omniauthable, omniauth_providers: %i[facebook]
+
   has_one :profile, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
