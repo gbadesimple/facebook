@@ -27,7 +27,7 @@ class ProfilesController < ApplicationController
 
       redirect_to root_path
     else
-      flash[:alert] = "#{@profile.errors.full_messages.join(", ")}, please try again!"
+      flash[:alert] = "Errors were found, please try again!"
       render :new
     end
   end
