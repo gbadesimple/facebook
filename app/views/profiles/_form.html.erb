@@ -1,6 +1,8 @@
 
         <%= simple_form_for [@user, @profile], url: { action: :update || :new } do |f| %>
-
+        <div class="title is-3">
+          <%= f.error_notification %>
+        </div>
         <div class="field">
           <div class="control"> Upload your profile picture:
           <%= f.file_field :avatar, hint: ("Upload your profile picture"), class: "button is-info" %>
