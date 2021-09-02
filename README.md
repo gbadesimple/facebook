@@ -50,4 +50,4 @@ Use the [Active Storage](https://edgeguides.rubyonrails.org/active_storage_overv
 Make your post able to be either a text OR a photo by using a polymorphic association (so users can still like or comment on it while being none-the-wiser).
 Style it up nicely! We’ll dive into HTML/CSS in the next course.
 
-Following [TheOdinProjectCurriculum](www.) to view the full project task.
+Following [TheOdinProjectCurriculum](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-on-rails/lessons/final-project#assignment) to view the full project task.
