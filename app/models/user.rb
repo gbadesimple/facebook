@@ -20,6 +20,14 @@ class User < ApplicationRecord
     end
   end
 
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
   has_one :profile, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
