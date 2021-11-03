@@ -31,6 +31,11 @@ gem 'devise'
 gem 'simple_form'
 
 gem "letter_opener", group: :development
+
+# omniauth facebook
+gem 'omniauth-facebook'
+gem 'omniauth-rails_csrf_protection'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

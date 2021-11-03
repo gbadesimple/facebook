@@ -8,7 +8,11 @@
            <%= image_tag(post.user.profile.avatar) %>
           <% end %>
          <% end %>
-         <strong><%= post.user.username.capitalize %></strong>
+         <strong>
+           <%= link_to user_path(post.user.id), method: :GET do %>
+            <%= post.user.username.capitalize %>
+           <% end %>
+         </strong>
       </p>
     </figure>
 
