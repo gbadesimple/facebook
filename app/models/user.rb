@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   devise :omniauthable, omniauth_providers: %i[facebook]
+  after_create :email_new_user
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -55,5 +56,10 @@ class User < ApplicationRecord
     end
     our_post.sort!{|first, last| last <=> first}
   end
+
+  def email_new_user
+    UserMailer.welcome_mail(self).deliver_now
+  end
+
 
 end
