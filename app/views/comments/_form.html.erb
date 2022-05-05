@@ -12,7 +12,7 @@
   <div class="media-content">
       <div class="field">
         <p class="control">
-          <%= f.input :body, wrapper: false, input_html: {placeholder: "Write comment here...", autofocus: true}, label_html: {class:"label"} %>
+          <%= f.text_area :body, size: "70x8", wrapper: false, input_html: {placeholder: "Write comment here...", autofocus: true}, label_html: {class:"label"} %>
         </p>
         <p class="control">
           <%= f.file_field :images, multiple: true %>
