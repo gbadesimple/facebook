@@ -6,7 +6,8 @@
     "@rails/activestorage": "^7.0.2-4",
     "@rails/ujs": "^7.0.2-4",
     "@rails/webpacker": "5.4.3",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "webpack": "^5.72.0"
   },
   "version": "0.1.0",
   "devDependencies": {
