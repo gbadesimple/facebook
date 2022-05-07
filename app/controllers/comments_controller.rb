@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     if @comment.save
       flash[:notice] = "Comment created successfully"
 
-      redirect_to posts_path
+      redirect_to new_post_comment_path
     else
       flash[:alert] = "We could not process your request at this time, please try again later"
 
