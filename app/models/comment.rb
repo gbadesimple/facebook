@@ -5,4 +5,6 @@ class Comment < ApplicationRecord
 
   has_many_attached :images, dependent: :destroy
   has_many :commentlikes, dependent: :destroy
+
+  has_rich_text :body
 end

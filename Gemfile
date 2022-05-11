@@ -29,6 +29,8 @@ gem 'bulma-rails', '~> 0.9.1'
 gem 'devise'
 gem 'simple_form'
 
+gem 'image_processing', '~> 1.12', '>= 1.12.2'
+
 gem "letter_opener", group: :development
 
 # omniauth facebook
