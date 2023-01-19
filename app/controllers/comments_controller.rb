@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
     @post = Post.find(params[:post_id])
-    @comments = @post.comments.all.order(created_at: :ASC)
+    @comments = @post.comments.all.order(created_at: :DESC)
     friendrequests
   end
 
